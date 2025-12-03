@@ -83,88 +83,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
             // Tiến hành xử lý đăng ký tài khoản
-            // Kiểm tra số lượng tài khoản đã đăng ký từ địa chỉ IP hiện tại
-            $stmt = $conn->prepare("SELECT COUNT(*) as count FROM account WHERE ip_address=:ip_address");
-            $stmt->bindParam(':ip_address', $ip_address);
+            $stmt = $conn->prepare("SELECT * FROM account WHERE username=:username");
+            $stmt->bindParam(':username', $username);
             $stmt->execute();
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            $accountCount = $row['count'];
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            if ($accountCount >= 20) {
-                $_alert = '<div class="text-danger pb-2 font-weight-bold">Bạn đã đăng ký đủ số lượng tài khoản từ địa chỉ IP này.</div>';
-
-                // Gọi hàm tạo lại CAPTCHA khi nhập sai CAPTCHA
+            if (count($result) > 0) {
+                $_alert = "<div class='text-danger pb-2 font-weight-bold'>Tài khoản đã tồn tại.</div>";
                 refreshCaptcha();
             } else {
-                $stmt = $conn->prepare("SELECT * FROM account WHERE username=:username");
-                $stmt->bindParam(':username', $username);
-                $stmt->execute();
-                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if ($recafcode !== null) {
+                    // Kiểm tra xem recafcode đã tồn tại trong bảng không
+                    $stmt = $conn->prepare("SELECT COUNT(*) as count FROM account WHERE id=:recaf");
+                    $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
+                    $stmt->execute();
+                    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                if (count($result) > 0) {
-                    $_alert = "<div class='text-danger pb-2 font-weight-bold'>Tài khoản đã tồn tại.</div>";
-
-                    // Gọi hàm tạo lại CAPTCHA khi nhập sai CAPTCHA
-                    refreshCaptcha();
-
-                } else {
-                    if ($recafcode !== null) {
-                        // Kiểm tra xem recafcode đã tồn tại trong bảng không
-                        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM account WHERE id=:recaf");
-                        $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT); // Using PDO::PARAM_INT to ensure the parameter is an integer
-                        $stmt->execute();
-                        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                        if ($row['count'] == 0) {
-                            $_alert = '<div class="text-danger pb-2 font-weight-bold">Không tìm thấy mã giới thiệu này.</div>';
-                            refreshCaptcha();
-                        } else {
-                            if ($count < 3) {
-                                $stmt = $conn->prepare("UPDATE account SET gioithieu = gioithieu + 1 WHERE id = :recaf");
+                    if ($row['count'] == 0) {
+                        $_alert = '<div class="text-danger pb-2 font-weight-bold">Không tìm thấy mã giới thiệu này.</div>';
+                        refreshCaptcha();
+                    } else {
+                        if ($count < 3) {
+                            $stmt = $conn->prepare("UPDATE account SET gioithieu = gioithieu + 1 WHERE id = :recaf");
+                            $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
+                            if ($stmt->execute()) {
+                                $count++;
+                                $stmt = $conn->prepare("INSERT INTO account (username, password, recaf, ip_address, gmail) VALUES (:username, :password, :recaf, :ip_address, :gmail)");
+                                $stmt->bindParam(':username', $username);
+                                $stmt->bindParam(':password', $password);
                                 $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
+                                $stmt->bindParam(':ip_address', $ip_address);
+                                $stmt->bindParam(':gmail', $gmail);
                                 if ($stmt->execute()) {
-                                    $count++;
-                                    $stmt = $conn->prepare("INSERT INTO account (username, password, recaf, ip_address, gmail) VALUES (:username, :password, :recaf, :ip_address, :gmail)");
-                                    $stmt->bindParam(':username', $username);
-                                    $stmt->bindParam(':password', $password);
-                                    $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
-                                    $stmt->bindParam(':ip_address', $ip_address);
-                                    $stmt->bindParam(':gmail', $gmail);
-                                    if ($stmt->execute()) {
-                                        $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng kí thành công!!</div>';
-                                        refreshCaptcha();
-                                    } else {
-                                        $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng ký thất bại.</div>';
-                                        refreshCaptcha();
-                                    }
+                                    $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng kí thành công!!</div>';
+                                    refreshCaptcha();
                                 } else {
-                                    $_alert = '<div class="text-danger pb-2 font-weight-bold">Có lỗi khi cập nhật số lần nhập mã!</div>';
+                                    $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng ký thất bại.</div>';
                                     refreshCaptcha();
                                 }
                             } else {
-                                $_alert = '<div class="text-danger pb-2 font-weight-bold">Mã giới thiệu này đã đạt đủ số người nhập mã!</div>';
+                                $_alert = '<div class="text-danger pb-2 font-weight-bold">Có lỗi khi cập nhật số lần nhập mã!</div>';
                                 refreshCaptcha();
                             }
-                        }
-                    } else {
-                        $stmt = $conn->prepare("INSERT INTO account (username, password, ip_address, gmail) VALUES (:username, :password, :ip_address, :gmail)");
-                        $stmt->bindParam(':username', $username);
-                        $stmt->bindParam(':password', $password);
-                        $stmt->bindParam(':ip_address', $ip_address);
-                        $stmt->bindParam(':gmail', $gmail);
-                        if ($stmt->execute()) {
-                            $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng kí thành công!!</div>';
-
-                            // Gọi hàm tạo lại CAPTCHA khi nhập sai CAPTCHA
-                            refreshCaptcha();
-
                         } else {
-                            $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng ký thất bại.</div>';
-
-                            // Gọi hàm tạo lại CAPTCHA khi nhập sai CAPTCHA
+                            $_alert = '<div class="text-danger pb-2 font-weight-bold">Mã giới thiệu này đã đạt đủ số người nhập mã!</div>';
                             refreshCaptcha();
-
                         }
+                    }
+                } else {
+                    $stmt = $conn->prepare("INSERT INTO account (username, password, ip_address, gmail) VALUES (:username, :password, :ip_address, :gmail)");
+                    $stmt->bindParam(':username', $username);
+                    $stmt->bindParam(':password', $password);
+                    $stmt->bindParam(':ip_address', $ip_address);
+                    $stmt->bindParam(':gmail', $gmail);
+                    if ($stmt->execute()) {
+                        $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng kí thành công!!</div>';
+                        refreshCaptcha();
+                    } else {
+                        $_alert = '<div class="text-danger pb-2 font-weight-bold">Đăng ký thất bại.</div>';
+                        refreshCaptcha();
                     }
                 }
             }
