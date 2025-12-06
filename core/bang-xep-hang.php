@@ -178,7 +178,7 @@ LIMIT 10;";
                             </tr>
                         <tbody>
                             <?php
-                            $query = "SELECT name, JSON_EXTRACT(data_task, '$[1]') AS second_value FROM player ORDER BY CAST(JSON_EXTRACT(data_task, '$[0]') AS UNSIGNED) DESC LIMIT 20;";
+                            $query = "SELECT name, CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[1]')) AS UNSIGNED) AS second_value FROM player ORDER BY CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[1]')) AS UNSIGNED) DESC LIMIT 20;";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
 
