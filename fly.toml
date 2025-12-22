@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for web-php-nro on 2025-12-22T06:41:07Z
+# fly.toml app configuration file generated for nrochill on 2025-12-22T07:16:49Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'web-php-nro'
-primary_region = 'iad'
+app = 'nrochill'
+primary_region = 'nrt'
 
 [build]
 
