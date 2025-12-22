@@ -1,10 +1,10 @@
 <?php
+require_once '../../core/set.php';
 require_once '../../core/connect.php';
 require_once '../../core/cauhinh.php';
-require_once '../../core/set.php';
 
 // Lấy thông tin người chơi
-$query = "SELECT p.name, p.gender, p.pet, p.data_point, p.data_task, a.username, a.active, a.mkc2, a.cash, a.danap, a.gmail, a.gioithieu, a.tichdiem, a.id
+$query = "SELECT p.name, p.gender, p.pet, p.data_point, p.data_task, a.username, a.active, a.mkc2, a.cash, a.danap, a.gmail, a.gioithieu, a.id
           FROM player p
           LEFT JOIN account a ON p.account_id = a.id
           WHERE a.username = ?";
@@ -21,7 +21,6 @@ if ($result) {
     $petNhanVat = $result['pet'];
     $chuoiChiSo = $result['data_point'];
     $chuoiNhiemVu = json_decode($result['data_task'], true);
-    $diemTichLuy = $result['tichdiem'];
     $matkhaucap2 = $result['mkc2'];
 
     // Kiểm tra và xử lý biến $result['gmail'] trước khi sử dụng str_repeat

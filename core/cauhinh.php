@@ -1,13 +1,14 @@
 <?php
 
 // Cấu Hình Cơ Bản
-$_domain = 'https://nroonepuchman.online'; // điền domain của sự kiện giới thiệu của bạn
+$_domain = 'https://chillnro.online'; // điền domain của sự kiện giới thiệu của bạn
 $_IP = $_SERVER['REMOTE_ADDR']; // IP hiển thị ở phần cuối trang
-$_tenmaychu = 'Ngọc Rồng Múp '; // Tên máy chủ hiển thị ở cuối trang
-$_mienmaychu = 'Tải Ngay Ngọc Rồng Múp '; // Tên hiển thị phần download
-$_title = 'Ngọc Rồng Múp  - Máy Chủ One Puch Man'; // Tên hiển thị phần header
-$_dangnhap ='Đăng Nhập Ngọc Rồng Múp '; // Tên hiển thị phần đăng nhập
-$_dangky ='Đăng Ký Ngọc Rồng Múp '; // Tên hiển thị phần đăng ký
+$_tenmaychu = 'Ngọc Rồng Chill'; // Tên máy chủ hiển thị ở cuối trang
+$_mienmaychu = 'Tải Ngay Ngọc Rồng Chill '; // Tên hiển thị phần download
+$_title = 'Ngọc Rồng Chill  - Máy Chủ Chill'; // Tên hiển thị phần header
+$_dangnhap ='Đăng Nhập Ngọc Rồng Chill '; // Tên hiển thị phần đăng nhập
+$_dangky ='Đăng Ký Ngọc Rồng Chill '; // Tên hiển thị phần đăng ký
+$_zalolink = 'https://zalo.me/g/pajmhy992'; // Link Zalo group
 
 // thông tin cấu hình vps
 $serverIP = "127.0.0.1"; // lấy thông tin máy chủ vps

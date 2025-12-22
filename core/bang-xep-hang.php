@@ -16,25 +16,21 @@ include ('head.php');
         <div class="container color-forum pt-2">
             <div class="row">
                 <div class="col">
-                    <h6 class="text-center">BẢNG XẾP HẠNG ĐUA TOP SỨC MẠNH Ngọc Rồng Múp</h6>
+                    <h6 class="text-center">BẢNG XẾP HẠNG ĐUA TOP SỨC MẠNH <?php echo $_tenmaychu; ?></h6>
                     <table class="table table-borderless text-center">
                         <tbody>
                             <tr>
                                 <th>#</th>
                                 <th>Nhân vật</th>
                                 <th>Sức Mạnh</th>
-                                <th>Đệ Tử</th>
                                 <th>Hành Tinh</th>
-                                <th>Tổng</th>
                             </tr>
                         <tbody>
                             <?php
                             $query = "SELECT name, gender, 
-    CAST(JSON_UNQUOTE(JSON_EXTRACT(data_point, '$[11]')) AS SIGNED) AS second_value,
-    CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(pet_point, '$.power')), '0') AS SIGNED) AS detu_sm,
-    CAST(JSON_UNQUOTE(JSON_EXTRACT(data_point, '$[11]')) AS SIGNED) + CAST(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(pet_point, '$.power')), '0') AS SIGNED) AS tongdiem
+    CAST(JSON_UNQUOTE(JSON_EXTRACT(data_point, '$[11]')) AS SIGNED) AS second_value
 FROM player
-ORDER BY tongdiem DESC
+ORDER BY second_value DESC
 LIMIT 10;";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
@@ -71,46 +67,12 @@ LIMIT 10;";
                                         </td>
                                         <td>
                                             <?php
-                                            $value = $row['detu_sm'];
-
-                                            if ($value != '') {
-                                                if ($value > 1000000000) {
-                                                    echo number_format($value / 1000000000, 1, '.', '') . ' tỷ';
-                                                } elseif ($value > 1000000) {
-                                                    echo number_format($value / 1000000, 1, '.', '') . ' Triệu';
-                                                } elseif ($value >= 1000) {
-                                                    echo number_format($value / 1000, 1, '.', '') . ' k';
-                                                } else {
-                                                    echo number_format($value, 0, ',', '');
-                                                }
-                                            } else {
-                                                echo 'Không đệ tử';
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
                                             if ($row['gender'] == 0) {
                                                 echo "Trái đất";
                                             } elseif ($row['gender'] == 1) {
                                                 echo "Namec";
                                             } elseif ($row['gender'] == 2) {
                                                 echo "Xayda";
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            $total = $row['tongdiem'];
-
-                                            if ($total > 1000000000) {
-                                                echo number_format($total / 1000000000, 1, '.', '') . ' tỷ';
-                                            } elseif ($total > 1000000) {
-                                                echo number_format($total / 1000000, 1, '.', '') . ' Triệu';
-                                            } elseif ($total >= 1000) {
-                                                echo number_format($total / 1000, 1, '.', '') . ' k';
-                                            } else {
-                                                echo number_format($total, 0, ',', '');
                                             }
                                             ?>
                                         </td>
@@ -140,7 +102,7 @@ LIMIT 10;";
                             </tr>
                         <tbody>
                             <?php
-                            $query = "SELECT p.name, a.tongnap FROM player p JOIN account a ON p.account_id = a.id ORDER BY a.tongnap DESC LIMIT 10;";
+                            $query = "SELECT p.name, a.danap FROM player p JOIN account a ON p.account_id = a.id ORDER BY a.danap DESC LIMIT 10;";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
 
@@ -151,7 +113,7 @@ LIMIT 10;";
                         <tr>
                             <td>' . $stt . '</td>
                             <td>' . $row['name'] . '</td>
-                            <td>' . number_format($row['tongnap'], 0, ',') . 'đ</td>
+                            <td>' . number_format($row['danap'], 0, ',') . 'đ</td>
                         </tr>';
                                     $stt++;
                                 }
@@ -226,7 +188,7 @@ LIMIT 10;";
 
     <div>
         <h5>
-            2024© Được vận hành bởi <a href="https://zalo.me/g/gztzfn942">Ngọc Rồng Múp</a>
+            2024© Được vận hành bởi <a href="<?php echo $_zalolink; ?>"><?php echo $_tenmaychu; ?></a>
         </h5>
     </div>
 </div>

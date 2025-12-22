@@ -32,7 +32,7 @@ require_once '../core/cauhinh.php';
                                 <div class="posts_boxTime__bFU28"><span class="posts_time__PFYQE"><i>00:00 10/3/2024</i></span></div>
                                 <div>
                                     <div class="fr-view" style="background-color: rgb(255, 255, 255);">
-                                <p><strong>Mở Thành Viên Ngọc Rồng Múp .</strong>
+                                <p><strong>Mở Thành Viên <?php echo $_tenmaychu; ?> .</strong>
                                 <br>I . Thời Gian Diễn Ra
                                 <br>Không giới hạn thời gian
                                 <br>II. Nội Dung

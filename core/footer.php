@@ -10,6 +10,6 @@ require_once 'set.php';
 
         <div>
             <h5>
-                2024© Được vận hành bởi <a href="https://zalo.me/g/zmvqyl342">Ngọc Rồng Múp</a>
+                2024© Được vận hành bởi <a href="<?php echo $_zalolink; ?>"><?php echo $_tenmaychu; ?></a>
             </h5>
         </div>

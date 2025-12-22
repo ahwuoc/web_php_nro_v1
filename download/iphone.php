@@ -18,8 +18,8 @@ require_once '../core/head.php';
                 <div class="row">
                     <div class="col">
                         <h4>Phiên bản iOS</h4>
-                        <p>Link Tải Phiên Bản iOS: <a class="text-dark font-weight-bold" href="https://testflight.apple.com/join/R91dTKfH">Tải đây</a></p>
-                        <p>Hãy tải ngay để trải nghiệm Ngọc Rồng Múp!</p>
+                        <p>Link Tải Phiên Bản iOS: <a class="text-dark font-weight-bold" href="https://testflight.apple.com/join/D9HDnnTH">Tải đây</a></p>
+                        <p>Hãy tải ngay để trải nghiệm <?php echo $_tenmaychu; ?>!</p>
                     </div>
                 </div>
             </div>

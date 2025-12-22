@@ -18,8 +18,8 @@ require_once '../core/head.php';
                 <div class="row">
                     <div class="col">
                         <h4>Phiên bản PC Windows</h4>
-                        <p>Link Tải Phiên Bản Windows: <a class="text-dark font-weight-bold" href="/download/ngocrongmup.rar">Tải đây</a></p>
-                        <p>Hãy tải ngay để trải nghiệm Ngọc Rồng Múp!</p>
+                        <p>Link Tải Phiên Bản Windows: <a class="text-dark font-weight-bold" href="https://drive.google.com/file/d/103Opnk1m-w_mIy8BtMICRIe6Pez4t4w2/view?usp=sharing">Tải đây</a></p>
+                        <p>Hãy tải ngay để trải nghiệm <?php echo $_tenmaychu; ?>!</p>
                     </div>
                 </div>
             </div>

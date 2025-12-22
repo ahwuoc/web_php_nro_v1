@@ -141,7 +141,7 @@ require_once 'core/cauhinh.php';
                     echo '<span class="hide-menu text-capitalize fw-bolder fs-9"> (' . $row['server_login'] . ' Sao)</span>';
                 }
 
-                $query2 = "SELECT player.account_id, account.admin, account.tichdiem, posts.tinhtrang AS post_tinhtrang
+                $query2 = "SELECT player.account_id, account.admin, posts.tinhtrang AS post_tinhtrang
                     FROM comments
                     INNER JOIN player ON comments.nguoidung = player.name
                     INNER JOIN account ON player.account_id = account.id

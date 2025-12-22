@@ -58,7 +58,7 @@ if ($_login === null) {
                 <div> Thông tin mở thành viên:<br>- Mở thành viên với chỉ <strong>10.000 VNĐ</strong>. <img
                         src="image/hot.gif"><br>- Được miễn phí <strong>GiftCode Thành viên</strong>. <img
                         src="image/hot.gif"><br>- Tận hưởng trọn vẹn các tính năng. <img src="image/hot.gif"><br>- Xây
-                    dựng, ủng hộ Ngọc Rồng Múp hoạt động.</div>
+                    dựng, ủng hộ <?php echo $_tenmaychu; ?> hoạt động.</div>
                     <br>
                 <div id="notify" class="text-danger pb-2 font-weight-bold"></div>
                 <?php if (isset($_POST['submit'])) {

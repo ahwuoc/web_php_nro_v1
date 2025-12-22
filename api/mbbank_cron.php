@@ -53,7 +53,7 @@ if (isset($_token) && !empty($_token)) {
                     $benAccountName = "Ngân Hàng Quân Đội - MBBank";
                 }
                 if (empty($bankName)) {
-                    $bankName = "Ngọc Rồng Múp";
+                    $bankName = $_tenmaychu;
                 }
 
                 if ($sotien >= 5000) {

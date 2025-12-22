@@ -2,7 +2,7 @@
 require_once '../../core/set.php';
 require_once '../../core/connect.php';
 
-$query = "SELECT player.name, player.gender, account.is_admin, account.tichdiem
+$query = "SELECT player.name, player.gender, account.is_admin
           FROM player
           LEFT JOIN account ON player.account_id = account.id
           WHERE account.username = :username";

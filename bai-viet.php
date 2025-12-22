@@ -21,7 +21,7 @@ if (isset($_POST['username'])) {
                                         if (isset($_GET['id'])) {
                                             // Xử lý lấy thông tin bài viết từ CSDL
                                             $post_id = $_GET['id'];
-                                            $query = "SELECT posts.*, player.gender, account.tichdiem, account.admin, account.server_login, posts.image, posts.tinhtrang FROM posts
+                                            $query = "SELECT posts.*, player.gender, account.admin, account.server_login, posts.image, posts.tinhtrang FROM posts
                                     LEFT JOIN player ON posts.username = player.name
                                     LEFT JOIN account ON player.account_id = account.id
                                     WHERE posts.id = :post_id";
@@ -262,7 +262,7 @@ if (isset($_POST['username'])) {
                                                 $nguoidung = $comment['nguoidung'];
 
                                                 // Lấy thông tin tài khoản và điểm tích lũy
-                                                $sql = "SELECT account.tichdiem, account.admin, player.account_id, account.server_login FROM account INNER JOIN player ON player.account_id = account.id WHERE player.name = ?";
+                                                $sql = "SELECT account.admin, player.account_id, account.server_login FROM account INNER JOIN player ON player.account_id = account.id WHERE player.name = ?";
                                                 $stmt = $conn->prepare($sql);
                                                 $stmt->bindParam(1, $nguoidung, PDO::PARAM_STR);
                                                 $stmt->execute();

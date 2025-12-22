@@ -75,7 +75,7 @@ if ($_login === null) {
                     onclick="copyText('admin-input')">
                 <br>
                 <div class="notification-container font-weight-blood" id="notification"></div>
-                - Xây dựng, ủng hộ Ngọc Rồng Múp hoạt động.<br>
+                - Xây dựng, ủng hộ <?php echo $_tenmaychu; ?> hoạt động.<br>
 
                 <br>
                 <br>

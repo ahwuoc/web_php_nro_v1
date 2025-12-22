@@ -28,11 +28,11 @@ require_once '../core/cauhinh.php';
                         </td>
                         <td class="posts_boxContent__XjPnA">
                             <div class="posts_contentPost___PyGu">
-                                <div class="posts_title__P1NsS">Cơ Chế Set Kích Hoạt Ngọc Rồng Múp</div>
+                                <div class="posts_title__P1NsS">Cơ Chế Set Kích Hoạt <?php echo $_tenmaychu; ?></div>
                                 <div class="posts_boxTime__bFU28"><span class="posts_time__PFYQE"><i>00:00 10/3/2024</i></span></div>
                                 <div>
                                     <div class="fr-view" style="background-color: rgb(255, 255, 255);">
-                                <p><strong>Nâng Set Kích Hoạt Ngọc Rồng Múp .</strong>
+                                <p><strong>Nâng Set Kích Hoạt <?php echo $_tenmaychu; ?> .</strong>
                                 <br>I. Set Kích Hoạt Thường
                                 <br>-Có Thể Up Tại 3 Map Đầu Tính Từ Làng
                                 <br>II. Set Kích Hoạt Vip

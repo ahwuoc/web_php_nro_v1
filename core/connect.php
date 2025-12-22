@@ -1,6 +1,6 @@
 <?php
-$ip_sv = "103.78.0.121";
-$dbname_sv = "nro";
+$ip_sv = "103.77.172.200";
+$dbname_sv = "nro_v1";
 $user_sv = "ahwuocdz";
 $pass_sv = "123456";
 
