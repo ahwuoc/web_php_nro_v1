@@ -2,4 +2,15 @@ services:
   web:
     build: .
     ports:
-      - "0.0.0.0:3000:8080"
+      - "0.0.0.0:3000:80"
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    environment:
+      - PHP_MEMORY_LIMIT=512M
+      - MAX_EXECUTION_TIME=300

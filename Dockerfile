@@ -13,9 +13,18 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Configure Apache to listen on port 8080
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
-RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
+# Enable caching modules
+RUN a2enmod cache cache_disk
+
+# Enable compression
+RUN a2enmod deflate
+
+# Optimize Apache MPM Prefork
+RUN echo "MaxRequestWorkers 256" >> /etc/apache2/mods-available/mpm_prefork.conf && \
+    echo "StartServers 10" >> /etc/apache2/mods-available/mpm_prefork.conf && \
+    echo "MinSpareServers 5" >> /etc/apache2/mods-available/mpm_prefork.conf && \
+    echo "MaxSpareServers 20" >> /etc/apache2/mods-available/mpm_prefork.conf && \
+    echo "MaxConnectionsPerChild 1000" >> /etc/apache2/mods-available/mpm_prefork.conf
 
 # Cài đặt Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -31,4 +40,4 @@ RUN rm -rf vendor composer.lock && composer install --no-dev --optimize-autoload
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html
 
-EXPOSE 8080
+EXPOSE 80
