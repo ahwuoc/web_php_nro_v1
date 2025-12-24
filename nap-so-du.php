@@ -11,9 +11,10 @@ if ($_login === null) {
 $bank_account = $_ENV['BANK_ACCOUNT'] ?? "0368833697";
 $bank_name = $_ENV['BANK_NAME'] ?? "MB"; // Mã ngân hàng MBBank trên Sepay
 $account_name = $_ENV['BANK_ACCOUNT_NAME'] ?? "LE MINH NHUT";
+$nap_prefix = $_ENV['NAP_PREFIX'] ?? "NAP";
 
 // Tạo nội dung chuyển khoản
-$transfer_content = "NAP " . ($_username ?? 'GUEST');
+$transfer_content = $nap_prefix . "-" . ($_username ?? 'GUEST');
 ?>
 
 <style>
@@ -119,7 +120,57 @@ $transfer_content = "NAP " . ($_username ?? 'GUEST');
                             <strong>Thông báo:</strong> Sau khi chuyển khoản thành công, vui lòng chờ hệ thống sẽ tự động cộng tiền vào tài khoản của bạn trong vài phút!
                         </div>
 
+                        <div class="text-center mt-3">
+                            <button class="btn btn-success btn-lg" onclick="confirmNap()">
+                                <i class="fas fa-check-circle"></i> XÁC NHẬN ĐÃ NẠP
+                            </button>
+                        </div>
+
                         <script>
+                        let selectedAmount = 10000;
+
+                        function confirmNap() {
+                            const customAmount = document.getElementById('custom-amount').value;
+                            const amount = customAmount >= 10000 ? customAmount : selectedAmount;
+                            
+                            Swal.fire({
+                                title: 'Xác nhận nạp tiền',
+                                html: `Bạn đã chuyển khoản <strong>${Number(amount).toLocaleString()}đ</strong> với nội dung:<br><strong><?php echo $transfer_content; ?></strong>?`,
+                                icon: 'question',
+                                showCancelButton: true,
+                                confirmButtonColor: '#28a745',
+                                cancelButtonColor: '#6c757d',
+                                confirmButtonText: 'Đã nạp xong',
+                                cancelButtonText: 'Hủy'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Gọi API lưu yêu cầu nạp tiền
+                                    fetch('api/nap-tien.php', {
+                                        method: 'POST',
+                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                                        body: 'amount=' + amount
+                                    })
+                                    .then(response => response.json())
+                                    .then(data => {
+                                        if (data.status === 'success') {
+                                            Swal.fire({
+                                                title: 'Thành công!',
+                                                html: 'Đã ghi nhận yêu cầu nạp tiền.<br>Hệ thống sẽ tự động cộng tiền trong vài phút.',
+                                                icon: 'success',
+                                                timer: 3000,
+                                                showConfirmButton: false
+                                            });
+                                        } else {
+                                            Swal.fire('Lỗi', data.message, 'error');
+                                        }
+                                    })
+                                    .catch(err => {
+                                        Swal.fire('Lỗi', 'Không thể kết nối server', 'error');
+                                    });
+                                }
+                            });
+                        }
+
                         function copyText(text) {
                             navigator.clipboard.writeText(text).then(function() {
                                 Swal.fire({
@@ -137,6 +188,7 @@ $transfer_content = "NAP " . ($_username ?? 'GUEST');
                             btn.addEventListener('click', function() {
                                 document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('active'));
                                 this.classList.add('active');
+                                selectedAmount = this.dataset.amount;
                                 updateQR(this.dataset.amount);
                                 document.getElementById('custom-amount').value = '';
                             });

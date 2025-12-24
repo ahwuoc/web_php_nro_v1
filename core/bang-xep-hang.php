@@ -140,7 +140,13 @@ LIMIT 10;";
                             </tr>
                         <tbody>
                             <?php
-                            $query = "SELECT name, CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[1]')) AS UNSIGNED) AS second_value FROM player ORDER BY CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[1]')) AS UNSIGNED) DESC LIMIT 20;";
+                            $query = "SELECT name, 
+                                CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[0]')) AS UNSIGNED) AS task_id,
+                                CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[1]')) AS UNSIGNED) AS subtask,
+                                CAST(JSON_UNQUOTE(JSON_EXTRACT(data_task, '$[2]')) AS UNSIGNED) AS required_count
+                            FROM player 
+                            ORDER BY task_id DESC, subtask DESC, required_count DESC 
+                            LIMIT 20;";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
 
@@ -151,7 +157,7 @@ LIMIT 10;";
                         <tr>
                             <td>' . $stt . '</td>
                             <td>' . $row['name'] . '</td>
-                            <td>' . number_format($row['second_value'], 0, ',') . '</td>
+                            <td>' . number_format($row['task_id'], 0, ',') . '</td>
                         </tr>';
                                     $stt++;
                                 }
