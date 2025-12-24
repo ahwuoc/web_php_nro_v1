@@ -14,7 +14,7 @@ $account_name = $_ENV['BANK_ACCOUNT_NAME'] ?? "LE MINH NHUT";
 $nap_prefix = $_ENV['NAP_PREFIX'] ?? "NAP";
 
 // Tạo nội dung chuyển khoản
-$transfer_content = $nap_prefix . "-" . ($_username ?? 'GUEST');
+$transfer_content = $nap_prefix . ($_username ?? 'GUEST');
 ?>
 
 <style>

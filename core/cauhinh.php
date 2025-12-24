@@ -12,7 +12,7 @@ if (file_exists($envFile)) {
 }
 
 // Cấu Hình Cơ Bản
-$_domain = 'https://chillnro.online'; // điền domain của sự kiện giới thiệu của bạn
+$_domain = $_ENV['DOMAIN'] ?? 'https://chillnro.online'; // điền domain của sự kiện giới thiệu của bạn
 $_IP = $_SERVER['REMOTE_ADDR']; // IP hiển thị ở phần cuối trang
 $_tenmaychu = $_ENV['SERVER_NAME'] ?? 'Ngọc Rồng Chill'; // Tên máy chủ hiển thị ở cuối trang
 $_mienmaychu = 'Tải Ngay ' . $_tenmaychu; // Tên hiển thị phần download

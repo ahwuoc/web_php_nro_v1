@@ -47,13 +47,8 @@ if (strpos($content, $NAP_PREFIX) !== 0) {
     exit(json_encode(['success' => true, 'message' => "Content not match $NAP_PREFIX format"]));
 }
 
-// Tách username từ nội dung (NAP-username hoặc NAP+username)
-$parts = preg_split('/[-+]/', $content, 2);
-if (count($parts) < 2 || empty($parts[1])) {
-    exit(json_encode(['success' => false, 'message' => 'Invalid content format']));
-}
-
-$username = trim($parts[1]);
+// Tách username bằng cách loại bỏ prefix
+$username = trim(substr($content, strlen($NAP_PREFIX)));
 
 try {
     // Kiểm tra user có tồn tại không
