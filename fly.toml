@@ -1,33 +1,12 @@
-# fly.toml app configuration file generated for web-php-nro-v1 on 2025-12-24T05:40:59Z
+# fly.toml app configuration file generated for nrofreeall on 2025-12-24T06:18:59Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'chillnro'
+app = 'nrofreeall'
 primary_region = 'nrt'
 
 [build]
-[env]
-DB_HOST=103.77.172.200
-DB_NAME=nro_v1
-DB_USER=ahwuocdz
-DB_PASS=123456
-
-ZALO_LINK=https://zalo.me/g/pajmhy992
-
-BANK_ACCOUNT=0368833697
-BANK_NAME=MB
-BANK_ACCOUNT_NAME=LE MINH NHUT
-
-DOWNLOAD_ANDROID=https://drive.google.com/file/d/1wXITNj_Ynu8oUJ4jl3o2cBySg2lyePJ_/view?usp=sharing
-DOWNLOAD_WINDOWS=https://drive.google.com/file/d/103Opnk1m-w_mIy8BtMICRIe6Pez4t4w2/view?usp=sharing
-DOWNLOAD_IOS=https://testflight.apple.com/join/D9HDnnTH
-
-LOGO_URL=https://res.cloudinary.com/de2rfv7q2/image/upload/v1766546245/flnz9d5zvijebm7g3jkz.jpg
-
-BALANCE_FIELD=vnd
-TOTAL_NAP_FIELD=tongnap
-NAP_PREFIX=NAP
 
 [http_service]
   internal_port = 80
