@@ -1,33 +1,23 @@
-# fly.toml for app: nrochill
+# fly.toml app configuration file generated for web-php-nro-v1 on 2025-12-24T05:40:59Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "nrochill"
-primary_region = "nrt"
+app = 'web-php-nro-v1'
+primary_region = 'nrt'
 
-# ===== ENV (public config only) =====
-[env]
-ZALO_LINK = "https://zalo.me/g/pajmhy992"
+[build]
 
-BANK_ACCOUNT = "0368833697"
-BANK_NAME = "MB"
-BANK_ACCOUNT_NAME = "LE MINH NHUT"
-
-DOWNLOAD_ANDROID = "https://drive.google.com/file/d/1wXITNj_Ynu8oUJ4jl3o2cBySg2lyePJ_/view?usp=sharing"
-DOWNLOAD_WINDOWS = "https://drive.google.com/file/d/103Opnk1m-w_mIy8BtMICRIe6Pez4t4w2/view?usp=sharing"
-DOWNLOAD_IOS = "https://testflight.apple.com/join/D9HDnnTH"
-
-LOGO_URL = "https://res.cloudinary.com/de2rfv7q2/image/upload/v1766546245/flnz9d5zvijebm7g3jkz.jpg"
-
-# ===== HTTP SERVICE =====
 [http_service]
-internal_port = 8080
-force_https = true
-auto_stop_machines = "stop"
-auto_start_machines = true
-min_machines_running = 0
-processes = ["app"]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
 
-# ===== VM CONFIG =====
 [[vm]]
-cpu_kind = "shared"
-cpus = 1
-memory_mb = 1024
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024
