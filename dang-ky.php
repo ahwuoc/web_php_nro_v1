@@ -93,7 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 refreshCaptcha();
             } else {
                 if ($recafcode !== null) {
-                    // Kiểm tra xem recafcode đã tồn tại trong bảng không
                     $stmt = $conn->prepare("SELECT COUNT(*) as count FROM account WHERE id=:recaf");
                     $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
                     $stmt->execute();
@@ -108,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
                             if ($stmt->execute()) {
                                 $count++;
-                                $stmt = $conn->prepare("INSERT INTO account (username, password, recaf, ip_address, gmail) VALUES (:username, :password, :recaf, :ip_address, :gmail)");
+                                $stmt = $conn->prepare("INSERT INTO account (username, password, recaf, ip_address, gmail, admin) VALUES (:username, :password, :recaf, :ip_address, :gmail, 0)");
                                 $stmt->bindParam(':username', $username);
                                 $stmt->bindParam(':password', $password);
                                 $stmt->bindParam(':recaf', $recafcode, PDO::PARAM_INT);
@@ -131,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     }
                 } else {
-                    $stmt = $conn->prepare("INSERT INTO account (username, password, ip_address, gmail) VALUES (:username, :password, :ip_address, :gmail)");
+                    $stmt = $conn->prepare("INSERT INTO account (username, password, ip_address, gmail, admin) VALUES (:username, :password, :ip_address, :gmail, 0)");
                     $stmt->bindParam(':username', $username);
                     $stmt->bindParam(':password', $password);
                     $stmt->bindParam(':ip_address', $ip_address);

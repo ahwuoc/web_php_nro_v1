@@ -28,7 +28,7 @@ include ('head.php');
                         <tbody>
                             <?php
                             $query = "SELECT name, gender, 
-    CAST(JSON_UNQUOTE(JSON_EXTRACT(data_point, '$[11]')) AS SIGNED) AS second_value
+    CAST(JSON_UNQUOTE(JSON_EXTRACT(data_point, '$[1]')) AS SIGNED) AS second_value
 FROM player
 ORDER BY second_value DESC
 LIMIT 10;";

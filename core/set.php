@@ -1,11 +1,11 @@
 <?php
-require_once 'config.php';
-date_default_timezone_set('Asia/Ho_Chi_Minh');
-
-// Kiểm tra và khởi động phiên làm việc nếu chưa được khởi động
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
+require_once 'config.php';
+date_default_timezone_set('Asia/Ho_Chi_Minh');
+
+
 
 function fetchUserData($conn, $username) {
     $stmt = $conn->prepare("SELECT * FROM account WHERE username = :username");

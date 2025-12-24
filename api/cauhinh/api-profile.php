@@ -59,7 +59,7 @@ if ($result) {
     echo "<span>- Số dư: " . number_format($result['cash']) . " VNĐ</span><br>"; // hiển thị số dư tài khoản
     echo "<span>- Tổng nạp: " . $result['danap'] . " VNĐ</span><br><br>"; // hiển thị tổng nạp của tài khoản
     echo $danhHieu !== "" ? '- Danh hiệu: <span style="color:' . $mauSac . ' !important">' . $danhHieu . '</span><br>' : ""; // danh hiệu trên diễn đàn
-    echo "<span>- Tích điểm: " . $diemTichLuy . "</span><br>"; // điểm tích lũy đăng bài, trả lời bài
+    echo "<span>- Tích điểm: " . 0 . "</span><br>"; // điểm tích lũy đăng bài, trả lời bài
     echo "<span>- Gmail: " . $emailMasked . "</span><br>"; // hiển thị gmail của tài khoản
     echo "<span>- Mã bảo vệ: " . ($result['mkc2'] != null ? "Đã cập nhật" : "Chưa có") . "</span><br><br>"; // hiển thị gmail của tài khoản
     echo "</div>";

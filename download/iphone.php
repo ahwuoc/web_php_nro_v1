@@ -18,7 +18,7 @@ require_once '../core/head.php';
                 <div class="row">
                     <div class="col">
                         <h4>Phiên bản iOS</h4>
-                        <p>Link Tải Phiên Bản iOS: <a class="text-dark font-weight-bold" href="https://testflight.apple.com/join/D9HDnnTH">Tải đây</a></p>
+                        <p>Link Tải Phiên Bản iOS: <a class="text-dark font-weight-bold" href="<?php echo $_ENV['DOWNLOAD_IOS'] ?? '#'; ?>">Tải đây</a></p>
                         <p>Hãy tải ngay để trải nghiệm <?php echo $_tenmaychu; ?>!</p>
                     </div>
                 </div>

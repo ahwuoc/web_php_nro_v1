@@ -8,9 +8,9 @@ if ($_login === null) {
 }
 
 // Cấu hình ngân hàng MBBank
-$bank_account = "0368833697";
-$bank_name = "MB"; // Mã ngân hàng MBBank trên Sepay
-$account_name = "LE MINH NHUT";
+$bank_account = $_ENV['BANK_ACCOUNT'] ?? "0368833697";
+$bank_name = $_ENV['BANK_NAME'] ?? "MB"; // Mã ngân hàng MBBank trên Sepay
+$account_name = $_ENV['BANK_ACCOUNT_NAME'] ?? "LE MINH NHUT";
 
 // Tạo nội dung chuyển khoản
 $transfer_content = "NAP " . ($_username ?? 'GUEST');

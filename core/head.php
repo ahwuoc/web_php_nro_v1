@@ -142,10 +142,8 @@ require_once 'connect.php';
                     <div class="ant-col page-layout-header ant-col-xs-24 ant-col-sm-24 ant-col-md-24">
                         <div class="page-layout-header-content">
                             <a href="/">
-                                <img src="/image/logo.png" class="header-logo"
+                                <img src="<?php echo $_ENV['LOGO_URL'] ?? '/image/logo.png'; ?>" class="header-logo"
                                     style="display: block;margin-left: auto;margin-right: auto;max-height: 150px; auto;max-width: 300px;">
-
-                                <!-- style="max-height: 120px; max-width: 70%" / -->
                             </a>
                             <div>
                                 <?php

@@ -18,7 +18,7 @@ require_once '../core/head.php';
                 <div class="row">
                     <div class="col">
                         <h4>Phiên bản Android</h4>
-                        <p>Link tải phiên bản Android: <a class="text-dark font-weight-bold" href="https://drive.google.com/file/d/1wXITNj_Ynu8oUJ4jl3o2cBySg2lyePJ_/view?usp=sharing">Tải đây</a></p>
+                        <p>Link tải phiên bản Android: <a class="text-dark font-weight-bold" href="<?php echo $_ENV['DOWNLOAD_ANDROID'] ?? '#'; ?>">Tải đây</a></p>
                         <p>Hãy tải ngay để trải nghiệm <?php echo $_tenmaychu; ?>!</p>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($result as $row) {
     $gender = $row['gender'];
-    $tichdiem = $row['tichdiem'];
+    $tichdiem = $row['tichdiem'] ?? 0;
     $admin = $row['is_admin'];
     $avatar_url = "";;
     $avatar_url = "";

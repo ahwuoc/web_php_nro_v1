@@ -1,8 +1,19 @@
 <?php
-$ip_sv = "103.77.172.200";
-$dbname_sv = "nro_v1";
-$user_sv = "ahwuocdz";
-$pass_sv = "123456";
+$envFile = __DIR__ . '/../.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (strpos($line, '=') !== false && strpos($line, '#') !== 0) {
+            list($key, $value) = explode('=', $line, 2);
+            $_ENV[trim($key)] = trim($value);
+        }
+    }
+}
+
+$ip_sv = $_ENV['DB_HOST'] ?? '127.0.0.1';
+$dbname_sv = $_ENV['DB_NAME'] ?? 'nro';
+$user_sv = $_ENV['DB_USER'] ?? 'root';
+$pass_sv = $_ENV['DB_PASS'] ?? '';
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
