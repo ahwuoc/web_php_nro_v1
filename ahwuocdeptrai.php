@@ -61,12 +61,16 @@ $amount = intval($data['transferAmount']);
 $transactionId = $data['id'] ?? null;
 $referenceCode = $data['referenceCode'] ?? null;
 
-if (strpos($content, $NAP_PREFIX) !== 0) {
+$napPos = strpos($content, $NAP_PREFIX);
+if ($napPos === false) {
     exit(json_encode(['success' => true, 'message' => "Content not match $NAP_PREFIX format"]));
 }
-$afterPrefix = trim(substr($content, strlen($NAP_PREFIX)));
-$parts = explode(' ', $afterPrefix);
-$username = strtolower($parts[0]); 
+$afterPrefix = substr($content, $napPos + strlen($NAP_PREFIX));
+preg_match('/^([A-Za-z0-9]+)/', $afterPrefix, $matches);
+if (empty($matches[1])) {
+    exit(json_encode(['success' => false, 'message' => 'Username not found in content']));
+}
+$username = strtolower($matches[1]); 
 
 try {
     $stmt = $conn->prepare("SELECT id, username FROM account WHERE username = :username");
