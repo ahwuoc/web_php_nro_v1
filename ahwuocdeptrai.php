@@ -38,15 +38,39 @@ try {
 $BALANCE_FIELD = $_ENV['BALANCE_FIELD'] ?? 'vnd';
 $TOTAL_NAP_FIELD = $_ENV['TOTAL_NAP_FIELD'] ?? 'tongnap';
 $NAP_PREFIX = $_ENV['NAP_PREFIX'] ?? 'NAP';
+
+// Hàm lưu log vào database
+function logToDatabase($conn, $type, $message, $data = null) {
+    try {
+        // Tạo table nếu chưa tồn tại
+        $conn->exec("CREATE TABLE IF NOT EXISTS `sepay_log` (
+            `id` INT AUTO_INCREMENT PRIMARY KEY,
+            `type` VARCHAR(50) NOT NULL,
+            `message` TEXT NOT NULL,
+            `data` LONGTEXT,
+            `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            INDEX `idx_type` (`type`),
+            INDEX `idx_created_at` (`created_at`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci");
+        
+        $stmt = $conn->prepare("INSERT INTO sepay_log (type, message, data) VALUES (:type, :message, :data)");
+        $stmt->bindParam(':type', $type, PDO::PARAM_STR);
+        $stmt->bindParam(':message', $message, PDO::PARAM_STR);
+        $stmt->bindParam(':data', $data, PDO::PARAM_STR);
+        $stmt->execute();
+    } catch (Exception $e) {
+        // Nếu lỗi, ghi vào file backup
+        file_put_contents('sepay_error.log', date('Y-m-d H:i:s') . " - DB Log Error: " . $e->getMessage() . "\n", FILE_APPEND);
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     exit(json_encode(['success' => false, 'message' => 'Method not allowed']));
 }
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
-$logFile = 'sepay.log';
-$logData = date('Y-m-d H:i:s') . ' - ' . $input . "\n";
-file_put_contents($logFile, $logData, FILE_APPEND);
+logToDatabase($conn, 'request', 'Received callback', $input);
 
 if (!$data || !isset($data['content']) || !isset($data['transferAmount']) || !isset($data['transferType'])) {
     http_response_code(400);
@@ -79,41 +103,43 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        file_put_contents($logFile, date('Y-m-d H:i:s') . " - User not found: $username\n", FILE_APPEND);
+        logToDatabase($conn, 'error', "User not found: $username", json_encode($data));
         exit(json_encode(['success' => false, 'message' => 'User not found']));
     }
 
     if ($transactionId) {
         $stmt = $conn->prepare("SELECT id FROM nap_tien WHERE transaction_id = :trans_id");
-        $stmt->bindParam(':trans_id', $transactionId, PDO::PARAM_INT);
+        $stmt->bindParam(':trans_id', $transactionId);
         $stmt->execute();
         if ($stmt->fetch()) {
+            logToDatabase($conn, 'warning', "Transaction already processed: $transactionId", json_encode($data));
             exit(json_encode(['success' => true, 'message' => 'Transaction already processed']));
         }
     }
     $conn->beginTransaction();
-    $stmt = $conn->prepare("UPDATE account SET $BALANCE_FIELD = $BALANCE_FIELD + :amount, $TOTAL_NAP_FIELD = $TOTAL_NAP_FIELD + :amount WHERE username = :username");
-    $stmt->bindParam(':amount', $amount, PDO::PARAM_INT);
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-    $stmt->execute();
+    
+    // Escape username để an toàn
+    $escapedUsername = $conn->quote($username);
+    $sql = "UPDATE account SET $BALANCE_FIELD = $BALANCE_FIELD + $amount, $TOTAL_NAP_FIELD = $TOTAL_NAP_FIELD + $amount WHERE username = $escapedUsername";
+    $conn->exec($sql);
 
     // Lưu lịch sử nạp tiền
     $stmt = $conn->prepare("INSERT INTO nap_tien (username, amount, status, transaction_id, reference_code) VALUES (:username, :amount, 1, :trans_id, :ref_code)");
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->bindParam(':amount', $amount, PDO::PARAM_INT);
-    $stmt->bindParam(':trans_id', $transactionId, PDO::PARAM_INT);
+    $stmt->bindParam(':trans_id', $transactionId);
     $stmt->bindParam(':ref_code', $referenceCode, PDO::PARAM_STR);
     $stmt->execute();
 
     $conn->commit();
 
-    file_put_contents($logFile, date('Y-m-d H:i:s') . " - Success: $username +$amount VND\n", FILE_APPEND);
+    logToDatabase($conn, 'success', "Deposit successful: $username +$amount VND", json_encode($data));
     
     echo json_encode(['success' => true, 'message' => "Cộng $amount VND cho $username thành công"]);
 
 } catch (Exception $e) {
     $conn->rollBack();
-    file_put_contents($logFile, date('Y-m-d H:i:s') . " - Error: " . $e->getMessage() . "\n", FILE_APPEND);
+    logToDatabase($conn, 'error', 'Exception: ' . $e->getMessage(), json_encode($data));
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Server error']);
 }
