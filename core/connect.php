@@ -11,9 +11,9 @@ if (file_exists($envFile)) {
 }
 
 $ip_sv = $_ENV['DB_HOST'] ?? '127.0.0.1';
-$dbname_sv = $_ENV['DB_NAME'] ?? 'nro';
-$user_sv = $_ENV['DB_USER'] ?? 'root';
-$pass_sv = $_ENV['DB_PASS'] ?? '';
+$dbname_sv = $_ENV['DB_NAME'] ?? 'marco';
+$user_sv = $_ENV['DB_USER'] ?? 'ahwuocdz';
+$pass_sv = $_ENV['DB_PASS'] ?? '123456';
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 

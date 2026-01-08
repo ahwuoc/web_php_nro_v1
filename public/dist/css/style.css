@@ -20,12 +20,12 @@
     font-weight: 500;
     padding-bottom: 0.25rem;
     text-decoration: none;
-    color: #212529;
+    color: #f1f1f1;
 }
 
 .list-group-item.active {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #ff5722;
+    border-color: #ff5722;
 }
 
 a {
@@ -34,16 +34,16 @@ a {
 
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
-    background-color: #28a745;
+    background-color: #ff5722;
 }
 
 .nav-link {
-    color: #28a745;
+    color: #ff5722;
 }
 
 .nav-link:focus,
 .nav-link:hover {
-    color: #1e7e34;
+    color: #f4511e;
 }
 
 .form-signin {
@@ -81,7 +81,7 @@ a {
 }
 
 .info-success {
-    color: green;
+    color: #4caf50;
     font-weight: 700;
     font-size: 20px;
 }
@@ -131,36 +131,46 @@ a {
     max-width: 100%;
     max-height: 250px;
 }
+
 .container {
     max-width: 960px !important;
 }
-html *
-{
-   font-size: 14px !important;
+
+html * {
+    font-size: 14px !important;
 }
+
 .main {
-    background-color: #90EE90;
+    background-color: rgba(30, 30, 30, 0.95);
     border-radius: 20px;
     padding: 10px 30px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .card {
-    background-color: #feecd8 !important;
+    background-color: #2d2d2d !important;
     border-radius: 20px !important;
+    color: #e0e0e0;
 }
 
 .post-item {
-    background-color: #fdf8da;
-    border: 1px solid #c8e6c9;
+    background-color: #333;
+    border: 1px solid #444;
     border-radius: 16px;
-    box-shadow: 0 3px 4px rgba(0,0,0,.051);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .3);
     padding: 10px;
     min-height: 87px;
+    color: #e0e0e0;
 }
 
 .post-item>.post-image {
     border: none;
     width: 65px;
 }
+
 .post-image {
     /* align-self: start; */
     margin-right: 10px;
@@ -170,8 +180,9 @@ html *
 
 .modal-main {
     padding: 24px;
-    background-color: #e8f5e9 !important;
+    background-color: #2d2d2d !important;
     border-radius: 10px !important;
+    color: #e0e0e0;
 }
 
 .border-radius-10 {
@@ -187,6 +198,7 @@ html *
     font-style: italic;
     font-weight: 700;
 }
+
 .success-form {
     color: green;
     font-style: italic;
@@ -194,14 +206,15 @@ html *
 }
 
 .btn-main-yellow {
-    background-color: #ffc10740 !important;
+    background-color: #fff3e0 !important;
+    /* Lighter orange tint */
     border-radius: 10px !important;
 }
 
 .bg-handle-main {
     width: 100%;
     height: 100%;
-    background-color: black; 
+    background-color: black;
     position: fixed;
     top: 0;
     opacity: 0.3;
@@ -210,23 +223,25 @@ html *
 }
 
 .color-main {
-    color: #212529 !important;
+    color: #e0e0e0 !important;
 }
 
 .form-input-main {
-    border: 2px solid #90EE90 !important;
+    border: 2px solid #ff5722 !important;
     border-radius: 10px !important;
+    background-color: #444;
+    color: white;
 }
 
 .post-detail {
-    background-color: #fff3cd;
-    border: 3px #fff3cd;
+    background-color: #2d2d2d;
+    border: 3px #333;
     border-image: none;
     border-radius: 10px;
     border-style: solid solid none;
     border-width: 1px 0;
-    box-shadow: 0 3px 8px rgba(0,0,0,.239);
-    color: inherit;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, .5);
+    color: #e0e0e0;
     padding: 5px 10px 10px;
 }
 
@@ -235,35 +250,39 @@ html *
 }
 
 .post-date {
-    color: #6c757d!important;
+    color: #bbb !important;
     font-size: 12px !important;
 }
 
 .pager-item {
-    background-color: #fdf8da;
-    border: 1px solid #c8e6c9;
+    background-color: #333;
+    border: 1px solid #444;
     border-radius: 10px;
-    box-shadow: 0 3px 4px rgba(0,0,0,.051);
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .3);
     width: 40px;
     height: 40px;
     font-weight: bold;
     margin-left: 5px;
+    color: #e0e0e0;
 }
+
 .pager-item:hover {
     background-color: #ffc10740;
 }
+
 .pager-item.active {
     background-color: #ffc107;
     border-color: #ffc107;
 }
 
 .recharge-method-item {
-    background-color: #fdf8da;
-    border: 3px solid #ffae52;
+    background-color: #2d2d2d;
+    border: 3px solid #ff5722;
     border-radius: 16px;
     padding: 10px;
     width: 100%;
 }
+
 .recharge-method-item img {
     border-radius: 16px;
     max-height: 100%;
@@ -271,12 +290,13 @@ html *
 }
 
 .recharge-method-item:hover {
-    border: 3px solid #ff8400;
+    border: 3px solid #d84315;
+    background-color: #333;
 }
 
 .recharge-method-item.active {
-    background-color: #faeda7;
-    border: 3px solid #ff5900;
+    background-color: #333;
+    border: 3px solid #fb8c00;
 }
 
 .color-red {
@@ -286,4 +306,78 @@ html *
 .avatar-main {
     max-height: 65px;
     max-width: 65px;
+}
+
+/* Global Background Override */
+body,
+.body-bg {
+    background: linear-gradient(135deg, #1c1d21 0%, #2f3640 100%) !important;
+    min-height: 100vh;
+    color: #e0e0e0 !important;
+}
+
+/* Ensure links are visible on dark background */
+a {
+    color: #ff9800;
+}
+
+a:hover {
+    color: #ffc107;
+}
+
+/* Scrollbar styling for Webkit */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #1c1d21;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff5722;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #f4511e;
+}
+
+/* SweetAlert2 Dark Mode Overrides */
+.swal2-popup {
+    background: #2d2d2d !important;
+    color: #e0e0e0 !important;
+}
+
+.swal2-title,
+.swal2-content,
+.swal2-html-container {
+    color: #e0e0e0 !important;
+}
+
+.swal2-confirm {
+    background-color: #ff5722 !important;
+}
+
+/* Override inner container beige background */
+.page-layout-body,
+.page-layout-header-content {
+    background-color: rgba(45, 45, 45, 0.95) !important;
+    color: #e0e0e0 !important;
+    border-radius: 10px;
+}
+
+/* Ensure other layout wrappers are consistent */
+.page-layout-color,
+.page-body {
+    background: transparent !important;
+}
+
+/* Fix text colors inside the layout */
+.page-layout-body .ant-list-item-meta-title>a {
+    color: #ff9800 !important;
+}
+
+.page-layout-body .ant-list-item-meta-description {
+    color: #bbb !important;
 }

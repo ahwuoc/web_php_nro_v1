@@ -180,40 +180,9 @@ require_once 'connect.php';
 
                                                     <div class="row ant-space ant-space-horizontal ant-space-align-center space-header-menu d-flex justify-content-center"
                                                         style="flex-wrap:wrap;margin-bottom:-10px">
-                                                        <div class="ant-space-item col-6 col-md-3 col-lg-2"
-                                                            style="padding-bottom:10px">
-                                                            <div>
-                                                                <a href="../admincp">
-                                                                    <button type="button"
-                                                                        class="ant-btn ant-btn-default header-menu-item header-menu-item-active w-100">
-                                                                        <i class="fa fa-cog fa-spin fa-1x fa-fw"></i>
-                                                                        <b>Cpanel</b>
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ant-space-item col-6 col-md-3 col-lg-2"
-                                                            style="padding-bottom:10px">
-                                                            <div>
-                                                                <a href="../profile.php">
-                                                                    <button type="button"
-                                                                        class="ant-btn ant-btn-default header-menu-item header-menu-item-active w-100">
-                                                                        <b>Profile</b>
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="ant-space-item col-6 col-md-3 col-lg-2"
-                                                            style="padding-bottom:10px">
-                                                            <div>
-                                                                <a href="../cap-nhat-thong-tin.php">
-                                                                    <button type="button"
-                                                                        class="ant-btn ant-btn-default header-menu-item header-menu-item-active w-100">
-                                                                        <b>Cập Nhật Profile</b>
-                                                                    </button>
-                                                                </a>
-                                                            </div>
-                                                        </div>
+
+
+
                                                         <div class="ant-space-item col-6 col-md-3 col-lg-2"
                                                             style="padding-bottom:10px">
                                                             <div>
@@ -307,17 +276,7 @@ require_once 'connect.php';
                                                                     </a>
                                                                 </div>
                                                             </div>
-                                                            <div class="ant-space-item col-6 col-md-3 col-lg-2"
-                                                                style="padding-bottom:10px">
-                                                                <div>
-                                                                    <a href="../cap-nhat-thong-tin.php">
-                                                                        <button type="button"
-                                                                            class="ant-btn ant-btn-default header-menu-item header-menu-item-active w-100">
-                                                                            <b>Cập Nhật Profile</b>
-                                                                        </button>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
+
                                                             <div class="ant-space-item col-6 col-md-3 col-lg-2"
                                                                 style="padding-bottom:10px">
                                                                 <div>
