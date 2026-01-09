@@ -37,7 +37,7 @@ try {
 
 $BALANCE_FIELD = $_ENV['BALANCE_FIELD'] ?? 'vnd';
 $TOTAL_NAP_FIELD = $_ENV['TOTAL_NAP_FIELD'] ?? 'tongnap';
-$NAP_PREFIX = $_ENV['NAP_PREFIX'] ?? 'NAP';
+$NAP_PREFIX = strtoupper($_ENV['NAP_PREFIX'] ?? 'NAP');
 
 // Hàm lưu log vào database
 function logToDatabase($conn, $type, $message, $data = null) {
