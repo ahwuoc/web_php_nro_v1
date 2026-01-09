@@ -23,8 +23,11 @@ function fetchUserData($conn, $username) {
     $_gmail = htmlspecialchars($user_arr['gmail'] ?? '');
     $_gioithieu = htmlspecialchars($user_arr['gioithieu'] ?? '');
     $_admin = htmlspecialchars($user_arr['is_admin'] ?? '');
-    $_coin = $user_arr['vnd'] ?? 0;
-    $_tcoin = htmlspecialchars($user_arr['tongnap'] ?? '0');
+    $balance_field = $_ENV['BALANCE_FIELD'] ?? 'vnd';
+    $_coin = $user_arr[$balance_field] ?? 0;
+    
+    $total_nap_field = $_ENV['TOTAL_NAP_FIELD'] ?? 'tongnap';
+    $_tcoin = htmlspecialchars($user_arr[$total_nap_field] ?? '0');
     $_status = $user_arr['active'] ?? 0;
 
     // Gọi hàm has_mkc2 để kiểm tra xem người dùng đã đặt Mã bảo vệ hay chưa
@@ -45,6 +48,7 @@ function fetchUserData($conn, $username) {
 
 $_login = $_login ?? null;
 $_user = $_SESSION['account'] ?? null;
+$_coin = 0; // Initialize default value
 
 if ($_user !== null) {
     $_login = "on";
