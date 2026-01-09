@@ -8,8 +8,9 @@ if ($_login === null) {
 }
 
 // Cấu hình ngân hàng MBBank
-$bank_account = $_ENV['BANK_ACCOUNT'] ?? "0368833697";
+$bank_account = $_ENV['BANK_ACCOUNT'] ?? "0862267487";
 $bank_name = $_ENV['BANK_NAME'] ?? "MB"; // Mã ngân hàng MBBank trên Sepay
+$bank_name_display = $_ENV['BANK_DISPLAY_NAME'] ?? "MBBank (Quân Đội)";
 $account_name = $_ENV['BANK_ACCOUNT_NAME'] ?? "LE MINH NHUT";
 $nap_prefix = $_ENV['NAP_PREFIX'] ?? "NAP";
 
@@ -178,7 +179,7 @@ $transfer_content = $nap_prefix . ($_username ?? 'GUEST');
                         
                         <div class="bank-info">
                             <p>
-                                <span><strong>Ngân hàng:</strong> MBBank (Quân Đội)</span>
+                                <span><strong>Ngân hàng:</strong> <?php echo $bank_name_display; ?></span>
                             </p>
                             <p>
                                 <span><strong>Số tài khoản:</strong> <span style="font-size:1.2em; color:white"><?php echo $bank_account; ?></span></span>
