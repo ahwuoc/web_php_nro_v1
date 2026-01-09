@@ -171,6 +171,15 @@ $transfer_content = $nap_prefix . ($_username ?? 'GUEST');
                         </div>
                         <h4 class="text-center page-title-nap">NẠP SỐ DƯ QUA MBBANK</h4>
                         
+                        <?php
+                            $bonus_percent = $_ENV['NAP_TIEN_BONUS_PRECENT'] ?? 0;
+                            if ($bonus_percent > 0) {
+                                echo '<div class="alert alert-warning text-center" style="background-color: #ff9800; color: #fff; border: none; font-weight: bold;">';
+                                echo '<i class="fas fa-gift"></i> Hiện tại server đang khuyến mãi nạp +' . htmlspecialchars($bonus_percent) . '% giá trị nạp';
+                                echo '</div>';
+                            }
+                        ?>
+                        
                         <?php if ($_login === null) { ?>
                             <div class="alert alert-danger text-center">
                                 Bạn chưa đăng nhập? Hãy đăng nhập để sử dụng chức năng này
