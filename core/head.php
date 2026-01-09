@@ -226,7 +226,7 @@ require_once 'connect.php';
                                                                     .catch(error => console.error(error));
                                                             }
 
-                                                            setInterval(updateRemainingTime, 500); // Cập nhật mỗi giây (1000ms)
+                                                            setInterval(updateRemainingTime, 60000); // Cập nhật mỗi 5 giây
                                                         </script>
 
                                                     </div>
@@ -261,7 +261,7 @@ require_once 'connect.php';
                                                             }
 
                                                             // Tự động cập nhật thời gian mỗi giây
-                                                            setInterval(updateRemainingTime, 100);
+                                                            setInterval(updateRemainingTime, 5000);
                                                         </script>
                                                         <div class="row ant-space ant-space-horizontal ant-space-align-center space-header-menu d-flex justify-content-center"
                                                             style="flex-wrap:wrap;margin-bottom:-10px">
