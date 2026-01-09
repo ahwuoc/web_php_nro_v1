@@ -74,6 +74,8 @@ foreach ($result as $row) {
 
 <?php
 // Chưa đăng nhập, chuyển hướng đến trang khác bằng JavaScript
-echo '<script>window.location.href = "../../dien-dan";</script>';
-exit(); // Đảm bảo dừng thực thi code sau khi chuyển hướng
+if ($_login === null) {
+    echo '<script>window.location.href = "../../dien-dan";</script>';
+    exit(); // Đảm bảo dừng thực thi code sau khi chuyển hướng
+}
 ?>
