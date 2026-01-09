@@ -216,64 +216,10 @@ $transfer_content = $nap_prefix . ($_username ?? 'GUEST');
                             <i class="fas fa-exclamation-triangle" style="color: #ff9800"></i> <strong>Lưu ý:</strong> Vui lòng nhập đúng <strong>Nội dung chuyển khoản</strong> để được cộng tiền tự động 24/7.
                         </div>
 
-                        <div class="text-center mt-3">
-                            <button class="btn btn-confirm" onclick="confirmNap()">
-                                <i class="fas fa-check-circle"></i> XÁC NHẬN ĐÃ CHUYỂN
-                            </button>
-                        </div>
+
 
                         <script>
                         let selectedAmount = 10000;
-
-                        function confirmNap() {
-                            const customAmount = document.getElementById('custom-amount').value;
-                            const amount = customAmount >= 10000 ? customAmount : selectedAmount;
-                            
-                            Swal.fire({
-                                title: 'Xác nhận nạp tiền',
-                                html: `Bạn xác nhận đã chuyển khoản <strong>${Number(amount).toLocaleString()}đ</strong><br>với nội dung: <strong style='color:#ff5722'><?php echo $transfer_content; ?></strong>?`,
-                                icon: 'question',
-                                showCancelButton: true,
-                                confirmButtonColor: '#ff5722',
-                                cancelButtonColor: '#444',
-                                confirmButtonText: 'Đúng, tôi đã chuyển',
-                                cancelButtonText: 'Chưa, quay lại'
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Gọi API lưu yêu cầu nạp tiền
-                                    fetch('api/nap-tien.php', {
-                                        method: 'POST',
-                                        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                                        body: 'amount=' + amount
-                                    })
-                                    .then(response => response.json())
-                                    .then(data => {
-                                        if (data.status === 'success') {
-                                            Swal.fire({
-                                                title: 'Thành công!',
-                                                html: 'Hệ thống đang xử lý giao dịch.<br>Vui lòng chờ 1-3 phút để cộng tiền.',
-                                                icon: 'success',
-                                                timer: 3000,
-                                                showConfirmButton: false,
-                                                background: '#2d2d2d',
-                                                color: '#fff'
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                title: 'Thông báo',
-                                                text: data.message,
-                                                icon: 'error',
-                                                background: '#2d2d2d',
-                                                color: '#fff'
-                                            });
-                                        }
-                                    })
-                                    .catch(err => {
-                                        Swal.fire('Lỗi', 'Không thể kết nối server', 'error');
-                                    });
-                                }
-                            });
-                        }
 
                         function copyText(text) {
                             navigator.clipboard.writeText(text).then(function() {
