@@ -118,9 +118,16 @@ try {
     }
     $conn->beginTransaction();
     
+    // Tính khuyến mãi
+    $bonusPercent = isset($_ENV['NAP_TIEN_BONUS_PRECENT']) ? intval($_ENV['NAP_TIEN_BONUS_PRECENT']) : 0;
+    $totalAmount = $amount;
+    if ($bonusPercent > 0) {
+        $totalAmount = $amount + ($amount * $bonusPercent / 100);
+    }
+
     // Escape username để an toàn
     $escapedUsername = $conn->quote($username);
-    $sql = "UPDATE account SET $BALANCE_FIELD = $BALANCE_FIELD + $amount, $TOTAL_NAP_FIELD = $TOTAL_NAP_FIELD + $amount WHERE username = $escapedUsername";
+    $sql = "UPDATE account SET $BALANCE_FIELD = $BALANCE_FIELD + $totalAmount, $TOTAL_NAP_FIELD = $TOTAL_NAP_FIELD + $amount WHERE username = $escapedUsername";
     $conn->exec($sql);
 
     // Lưu lịch sử nạp tiền
